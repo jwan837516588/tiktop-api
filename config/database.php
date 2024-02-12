@@ -1,4 +1,5 @@
 <?php
+use think\console\command\optimize\Schema;
 
 return [
     // 默认使用的数据库连接配置
@@ -26,11 +27,11 @@ return [
             // 服务器地址
             'hostname'        => env('database.hostname', '127.0.0.1'),
             // 数据库名
-            'database'        => env('database.database', ''),
+            'database'        => env('database.database', 'my_tiktop'),
             // 用户名
-            'username'        => env('database.username', 'root'),
+            'username'        => env('database.username', 'admin'),
             // 密码
-            'password'        => env('database.password', ''),
+            'password'        => env('database.password', '123456'),
             // 端口
             'hostport'        => env('database.hostport', '3306'),
             // 数据库连接参数
@@ -55,7 +56,8 @@ return [
             // 监听SQL
             'trigger_sql'     => env('app_debug', true),
             // 开启字段缓存
-            'fields_cache'    => false,
+            'fields_cache'    => true,
+            'schema_cache_path' => app() -> getRuntimePath() . 'schema' . DIRECTORY_SEPARATOR,
         ],
 
         // 更多的数据库配置信息

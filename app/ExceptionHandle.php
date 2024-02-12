@@ -15,6 +15,9 @@ use Throwable;
  */
 class ExceptionHandle extends Handle
 {
+    private $status = 200;
+    private $code = 500;
+    private $msg = '';
     /**
      * 不需要记录信息（日志）的异常类列表
      * @var array
@@ -50,9 +53,15 @@ class ExceptionHandle extends Handle
      */
     public function render($request, Throwable $e): Response
     {
-        // 添加自定义异常处理机制
+        if ($e instanceof ValidateException) {
+            $this->msg = $e->getError();
+        } elseif ($e instanceof HttpException) {
+            $this->status = $e->getStatusCode();
+            $this->msg = $e->getMessage();
+        } else {
+            $this->msg = $e->getMessage() ? $e->getMessage() : 'Unknown error: please contact the admin';
+        }
 
-        // 其他错误交给系统处理
-        return parent::render($request, $e);
+        return json(['code' => $this->code, 'msg' => $this->msg], $this->status);
     }
 }

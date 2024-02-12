@@ -15,3 +15,12 @@ Route::get('think', function () {
 });
 
 Route::get('hello/:name', 'index/hello');
+
+Route::group(
+    'api',
+    function () {
+        Route::group('user', function () {
+            Route::post('list','User/getList');
+        });
+    }
+);

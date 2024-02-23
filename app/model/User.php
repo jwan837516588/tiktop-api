@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace app\model;
 
+use think\exception\HttpException;
 use think\facade\Config;
 use think\Model;
 
@@ -23,5 +24,14 @@ class User extends Model
             return $this->where('type', $type)->paginate(['list_rows' => $limit, 'page' => $page,]);
         }
         return $this->paginate([  'list_rows'=> $limit,'page'=> $page,]);
+    }
+
+    public static function getInfo(int $id) {
+        $info = self::find($id);
+        if (!$info) {
+            throw new HttpException(404, "The user does not exist.");
+        }
+
+        return $info;
     }
 }

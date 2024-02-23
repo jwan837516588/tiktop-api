@@ -21,6 +21,7 @@ Route::group(
     function () {
         Route::group('user', function () {
             Route::post('list','User/getList');
+            Route::get('info/:id','User/getInfo');
         });
     }
 );

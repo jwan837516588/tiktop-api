@@ -5,6 +5,7 @@ namespace app\controller;
 
 use app\model\User as UserModel;
 use app\validate\PageLimit;
+use app\validate\IntNum;
 use think\facade\Request;
 
 class User
@@ -20,5 +21,13 @@ class User
         $userModel = new UserModel();
         $page = $userModel->getList($page, $limit, $user_type);
         return json(['code'=>0, 'msg'=>'success', 'page'=>$page]);
+    }
+
+    public function getInfo(int $id) {
+        validate(IntNum::class)->check(['num'=> $id]);
+
+        $info = UserModel::getInfo($id);
+        
+        return json(['code'=> 0, 'msg'=> 'info', $info]);
     }
 }

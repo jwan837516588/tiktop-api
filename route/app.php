@@ -23,5 +23,20 @@ Route::group(
             Route::post('list','User/getList');
             Route::get('info/:id','User/getInfo');
         });
+
+        Route::group('music', function () {
+            Route::post('list','Music/getList');
+            Route::get('info/:id','Music/getInfo');
+        });
+
+        Route::group('video', function () {
+            Route::post('list','Video/getList');
+            Route::get('info/:id','Video/getInfo');
+        });
+
+        Route::group('article', function () {
+            Route::post('list','Article/getList');
+            Route::get('info/:id','Article/getInfo');
+        });
     }
 );

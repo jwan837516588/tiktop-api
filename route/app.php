@@ -38,5 +38,9 @@ Route::group(
             Route::post('list','Article/getList');
             Route::get('info/:id','Article/getInfo');
         });
+
+        Route::group('recommend', function () {
+            Route::post('list','Recommend/getList');
+        });
     }
 );
